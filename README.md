@@ -3,6 +3,8 @@ An automated accessibility checker
 
 Automated accessibility test module that as opposed to many static anylisis tools in existence, employs headless browser environment through `puppeteer` in order to render the target components in way they would eventually appear in the consuming services and test them with `axe-core` against accessibility violations. In this way developers can get more accurate report whether their preprocessed content such as JSX will conform to accessibility standards.
 
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/6104164/30703545-4d00ea22-9ef0-11e7-9571-51e0b8313516.gif)
+
 ## Setup
 
 1. Install NodeJS >= v0.12.0 and NPM >= v3.0.0, if you don't have it yet. You
