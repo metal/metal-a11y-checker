@@ -18,7 +18,7 @@ const log = console.log;
  * @return {string} absolute path
  */
 function resolvePath(relativePath) {
-	return path.resolve(appDirectory, relativePath);
+  return path.resolve(appDirectory, relativePath);
 }
 
 /**
@@ -29,10 +29,10 @@ function resolvePath(relativePath) {
  * @return {Promise}
  */
 async function executeAxe(page) {
-	await page.injectFile(path.resolve(__dirname, PATH_TO_AXE));
-	return await page.evaluate(() => {
-		return axe.run();
-	});
+  await page.injectFile(path.resolve(__dirname, PATH_TO_AXE));
+  return await page.evaluate(() => {
+    return axe.run();
+  });
 }
 
 /**
@@ -41,14 +41,14 @@ async function executeAxe(page) {
  * @throw {object}
  */
 function decorate(axeReport) {
-	if (!axeReport || !axeReport.violations) {
-		throw new Error('Invalid Axe Report!');
-	}
-	if (0 === axeReport.violations.length) {
-		happyPath();
-	} else {
-		sadPath(axeReport);
-	}
+  if (!axeReport || !axeReport.violations) {
+    throw new Error('Invalid Axe Report!');
+  }
+  if (0 === axeReport.violations.length) {
+    happyPath();
+  } else {
+    sadPath(axeReport);
+  }
 }
 
 /**
@@ -57,7 +57,7 @@ function decorate(axeReport) {
  * @return {void}
  */
 function happyPath() {
-	log(chalk.green('No accessibility violation found'));
+  log(chalk.green('No accessibility violation found'));
 }
 
 /**
@@ -67,19 +67,19 @@ function happyPath() {
  * @throw {object} report collected by axe
  */
 function sadPath(axeReport) {
-	const noOfViolations = axeReport.violations.length;
-	log(chalk.red(`${noOfViolations} accessibility violations detected`));
-	axeReport.violations.forEach((data, idx) => {
-		log();
-		log('  ', chalk.red(`${idx + 1}. ${data.description} (${data.id})`));
-		log('  ', chalk.grey(data.help));
-		log('  ', chalk.underline(data.impact));
-		log('  ', chalk.yellow(data.nodes[0].target.join(' ')));
+  const noOfViolations = axeReport.violations.length;
+  log(chalk.red(`${noOfViolations} accessibility violations detected`));
+  axeReport.violations.forEach((data, idx) => {
+    log();
+    log('  ', chalk.red(`${idx + 1}. ${data.description} (${data.id})`));
+    log('  ', chalk.grey(data.help));
+    log('  ', chalk.underline(data.impact));
+    log('  ', chalk.yellow(data.nodes[0].target.join(' ')));
 
-		data.nodes[0].any.map(v => `- ${v.message}`).forEach(v => log('  ', v));
+    data.nodes[0].any.map(v => `- ${v.message}`).forEach(v => log('  ', v));
 
-		log('  ', chalk.grey('For detais, see: '), chalk.blue(data.helpUrl));
-	});
+    log('  ', chalk.grey('For detais, see: '), chalk.blue(data.helpUrl));
+  });
 }
 
 /**
@@ -89,9 +89,9 @@ function sadPath(axeReport) {
  * @return {number} available port
  */
 async function getAvailablePort(port) {
-	const availablePort = await detect(port);
-	if (availablePort === port) return port;
-	return getAvailablePort(availablePort);
+  const availablePort = await detect(port);
+  if (availablePort === port) return port;
+  return getAvailablePort(availablePort);
 }
 
 /**
@@ -103,28 +103,27 @@ async function getAvailablePort(port) {
  * @param {boolean} verbose
  * @return {Promise}
  */
-async function exec({ indexHtml, serverPath, verbose }) {
+async function exec({indexHtml, serverPath, verbose}) {
+  if (!verbose) console.log = () => {};
 
-	if (!verbose) console.log = () => {};
+  const port = await getAvailablePort(SERVER_PORT);
+  const path = serverPath || resolvePath(SERVER_PATH);
+  const server = new Server();
+  const serverConfig = await server.start(port, path);
 
-	const port = await getAvailablePort(SERVER_PORT);
-	const path = serverPath || resolvePath(SERVER_PATH);
-	const server = new Server();
-	const serverConfig = await server.start(port, path);
+  const driver = new Driver();
+  driver.on('exit', server.stop);
 
-	const driver = new Driver();
-	driver.on('exit', server.stop);
+  const url = `http://localhost:${serverConfig.port}/${indexHtml}`;
+  const page = await driver.connect(url);
+  const report = await executeAxe(page);
 
-	const url = `http://localhost:${serverConfig.port}/${indexHtml}`;
-	const page = await driver.connect(url);
-	const report = await executeAxe(page);
+  await driver.exit();
 
-	await driver.exit();
+  console.log = log;
 
-	console.log = log;
-
-	return report;
+  return report;
 }
 
-export { exec, decorate };
+export {exec, decorate};
 export default exec;
