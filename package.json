@@ -1,7 +1,7 @@
 {
   "name": "metal-a11y-checker",
   "version": "1.0.0",
-  "description": "Accessibility test module for clay components",
+  "description": "Accessibility test module for components",
   "main": "index.js",
   "bin": {
     "metal-a11y": "./bin/metal-a11y"
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/metal/metal-clay-components.git"
+    "url": "git+https://github.com/metal/metal-a11y-checker.git"
   },
   "keywords": [
     "accessibility",
@@ -28,9 +28,9 @@
   "author": "Bence Varga <vbence86@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/metal/metal-clay-components/issues"
+    "url": "https://github.com/metal/metal-a11y-checker/issues"
   },
-  "homepage": "https://github.com/metal/metal-clay-components#readme",
+  "homepage": "https://github.com/metal/metal-a11y-checker#readme",
   "dependencies": {
     "axe-core": "^2.4.1",
     "babel-cli": "^6.26.0",
