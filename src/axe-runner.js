@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import chalk from 'chalk';
 import dl from 'directory-list';
 import fs from 'fs';
