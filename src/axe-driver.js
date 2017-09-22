@@ -100,6 +100,7 @@ async function getAvailablePort(port) {
  * @async
  * @param {string} indexHtml - used to specifiy the demo page of the component
  * @param {string} serverPath - document root
+ * @param {boolean} verbose
  * @return {Promise}
  */
 async function exec({ indexHtml, serverPath, verbose }) {
