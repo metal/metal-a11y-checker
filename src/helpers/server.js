@@ -1,4 +1,4 @@
-import { Promise } from 'es6-promise';
+import {Promise} from 'es6-promise';
 import express from 'express';
 
 /** 
@@ -24,7 +24,7 @@ class Server {
       this.server = this.app.listen(port, function(err) {
         if (err) reject(err);
         console.log(`Server is listening on port ${port} hosting: ${dir}`);
-        resolve({ port, dir });
+        resolve({port, dir});
       });
     });
   }
@@ -38,5 +38,5 @@ class Server {
   }
 }
 
-export { Server };
+export {Server};
 export default Server;

@@ -7,11 +7,11 @@
     "metal-a11y": "./bin/metal-a11y"
   },
   "scripts": {
-    "ci": "prettier-eslint src/**/*.js --list-different && npm run lint npm run test",
+    "ci": "prettier-eslint src/**/*.js --list-different && npm run lint && npm run test",
     "format": "prettier-eslint --write src/**/*.js",
     "lint": "eslint src/**/*.js",
     "precommit": "lint-staged",
-    "test": "echo 'No tests specified yet!'"
+    "test": "echo 'No test specified yet!'"
   },
   "repository": {
     "type": "git",
@@ -52,12 +52,12 @@
     "eslint-config-liferay": "^1.0.2",
     "husky": "^0.14.3",
     "lint-staged": "^4.2.2",
-    "prettier-eslint": "^8.1.1"
+    "prettier-eslint-cli": "^4.3.2"
   },
   "lint-staged": {
     "*.js": [
-      "prettier-eslint --write src/**/*",
+      "prettier-eslint --write src/**/*.js",
       "git add"
     ]
-  } 
+  }
 }
