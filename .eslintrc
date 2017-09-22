@@ -1,13 +1,9 @@
 {
-	"extends": "liferay",
-	"env": {
+    "env": {
         "browser": true,
-		"node": true,
-		"es6": true,
-		"jest": true
-	},
-	"rules": {
-        "camelcase":"off",
-		"object-curly-spacing": "off"
-	}
+        "node": true,
+        "es6": true,
+        "jest": true
+    },
+    "extends": "liferay"
 }
