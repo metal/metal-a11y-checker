@@ -59,8 +59,5 @@
       "prettier-eslint --write src/**/*",
       "git add"
     ]
-  },
-  "workspaces": [
-    "src/*"
-  ] 
+  } 
 }
