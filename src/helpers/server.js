@@ -1,6 +1,9 @@
-import { Promise } from "es6-promise";
-import express from "express";
+import { Promise } from 'es6-promise';
+import express from 'express';
 
+/** 
+ * Wrapper around setting up an express server with static middleware
+ */
 class Server {
   /**
 	 * Starts the express server
@@ -10,10 +13,10 @@ class Server {
 	 * @throw {Error}
 	 */
   start(port, dir) {
-    if (this.app) throw new Error("Server is already running!");
+    if (this.app) throw new Error('Server is already running!');
 
     if (!port) port = 9000;
-    if (!dir) dir = "./";
+    if (!dir) dir = './';
 
     this.app = express();
     this.app.use(express.static(dir));
