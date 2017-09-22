@@ -1,10 +1,13 @@
-import puppeteer from "puppeteer";
-import Events from "events";
+import puppeteer from 'puppeteer';
+import Events from 'events';
 
+/**
+ * Wrapper around setting up a headless browser environment
+ * using puppeteer chrome-driver
+ */
 class Driver {
   /**
    * Constructs a Driver instance
-   * @return {object}
    */
   constructor() {
     this.emitter = new Events.EventEmitter();
@@ -19,9 +22,9 @@ class Driver {
   async connect(address) {
     this.browser = await puppeteer.launch();
     const page = await this.browser.newPage();
-    await page.goto(address, { waitUntil: "networkidle" });
+    await page.goto(address, { waitUntil: 'networkidle' });
     console.log(`Connected to ${address}`);
-    this.emitter.emit("connect");
+    this.emitter.emit('connect');
     return page;
   }
 
@@ -29,7 +32,7 @@ class Driver {
    * Closes the Puppeteer session
    */
   exit() {
-    this.emitter.emit("exit");
+    this.emitter.emit('exit');
     if (this.browser) this.browser.close();
   }
 
