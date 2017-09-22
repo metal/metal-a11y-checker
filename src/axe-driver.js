@@ -3,8 +3,8 @@ import path from 'path';
 import fs from 'fs';
 import chalk from 'chalk';
 import detect from 'detect-port';
-import Server from './helpers/server';
-import Driver from './helpers/puppeteerDriver';
+import Server from './helpers/Server';
+import Driver from './helpers/Driver';
 
 const SERVER_PORT = 8899;
 const SERVER_PATH = './';
