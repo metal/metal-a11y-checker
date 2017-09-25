@@ -65,12 +65,11 @@ function processReports(reports) {
         `${sumViolations} accessibility violations have been detected in total.`
       )
     );
+    process.exit(1);
   } else {
     log(chalk.green('No accessibility violations found in any packages'));
+    process.exit(0);
   }
-
-  if (violationsDetected) process.exit(1);
-  process.exit(0);
 }
 
 /**
