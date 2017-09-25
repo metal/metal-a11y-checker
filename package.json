@@ -35,6 +35,10 @@
     "axe-core": "^2.4.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
     "chalk": "^2.1.0",
     "detect-port": "^1.2.1",
     "directory-list": "^1.1.1",
@@ -47,10 +51,6 @@
     "yargs": "^9.0.1"
   },
   "devDependencies": {
-    "babel-plugin-syntax-async-functions": "^6.13.0",
-    "babel-plugin-transform-regenerator": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
     "eslint": "^4.7.2",
     "eslint-config-liferay": "^1.0.2",
     "husky": "^0.14.3",
