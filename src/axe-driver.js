@@ -8,7 +8,7 @@ import Driver from './helpers/Driver';
 
 const SERVER_PORT = 8899;
 const SERVER_PATH = './';
-const PATH_TO_AXE = '../node_modules/axe-core/axe.min.js';
+const PATH_TO_AXE = './node_modules/axe-core/axe.min.js';
 const appDirectory = fs.realpathSync(process.cwd());
 const log = console.log;
 
@@ -29,7 +29,7 @@ function resolvePath(relativePath) {
  * @return {Promise}
  */
 async function executeAxe(page) {
-  await page.injectFile(path.resolve(__dirname, PATH_TO_AXE));
+  await page.injectFile(resolvePath(PATH_TO_AXE));
   return await page.evaluate(() => {
     return axe.run();
   });
