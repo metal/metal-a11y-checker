@@ -22,7 +22,7 @@ class Driver {
   async connect(address) {
     this.browser = await puppeteer.launch();
     const page = await this.browser.newPage();
-    await page.goto(address, {waitUntil: 'networkidle'});
+    await page.goto(address, {waitUntil: 'load'});
     console.log(`Connected to ${address}`);
     this.emitter.emit('connect');
     return page;
