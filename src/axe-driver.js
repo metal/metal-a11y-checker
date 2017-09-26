@@ -31,7 +31,12 @@ function resolvePath(relativePath) {
 async function executeAxe(page) {
   await page.injectFile(resolvePath(PATH_TO_AXE));
   return await page.evaluate(() => {
-    return axe.run();
+    // we make sure that axe is executed in the next tick after
+    // the page emits the load event, giving priority for the
+    // original JS to be evaluated
+    return new Promise(resolve => {
+      setTimeout(resolve, 0);
+    }).then(() => axe.run());
   });
 }
 
