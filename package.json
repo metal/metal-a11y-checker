@@ -1,6 +1,6 @@
 {
   "name": "metal-a11y-checker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Accessibility test module for components",
   "main": "index.js",
   "bin": {
