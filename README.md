@@ -24,7 +24,7 @@ The tool exposes an executable that can be used to set up the testing environmen
 ```
 "devDependency": {
   ...
-  "metal-a11y": "^1.0.0",
+  "metal-a11y-checker": "^1.0.5",
   ...
 }
 ```
