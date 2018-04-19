@@ -1,17 +1,17 @@
 import {Promise} from 'es6-promise';
 import express from 'express';
 
-/** 
+/**
  * Wrapper around setting up an express server with static middleware
  */
 class Server {
   /**
-	 * Starts the express server
-	 * @param {number} port
-	 * @param {string} dir
-	 * @return {Promise}
-	 * @throw {Error}
-	 */
+   * Starts the express server
+   * @param {number} port
+   * @param {string} dir
+   * @return {Promise}
+   * @throw {Error}
+   */
   start(port, dir) {
     if (this.app) throw new Error('Server is already running!');
 
@@ -30,9 +30,9 @@ class Server {
   }
 
   /**
-	 * Stops the server
-	 * @return {Promise}
-	 */
+   * Stops the server
+   * @return {Promise}
+   */
   stop() {
     return Promise.resolve().then(() => this.server.close());
   }

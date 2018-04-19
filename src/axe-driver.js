@@ -91,7 +91,7 @@ function sadPath(axeReport) {
  * Returns the first available port starting from the given number
  * @async
  * @param {number} port
- * @return {number} available port
+ * @return {Promise.<number>} available port
  */
 async function getAvailablePort(port) {
   const availablePort = await detect(port);
@@ -100,15 +100,23 @@ async function getAvailablePort(port) {
 }
 
 /**
+ * @typedef ExecOptions
+ * @prop {string} indexHtml - used to specifiy the demo page of the component
+ * @prop {string} serverPath - document root
+ * @prop {boolean} [verbose]
+ * @prop {boolean} ciMode
+ */
+
+/**
  * Executes the test against the given url that is hosted at the
  * specified document root.
  * @async
- * @param {string} indexHtml - used to specifiy the demo page of the component
- * @param {string} serverPath - document root
- * @param {boolean} verbose
+ * @param {ExecOptions} options
  * @return {Promise}
  */
-async function exec({indexHtml, serverPath, verbose}) {
+async function exec(options) {
+  const {indexHtml, serverPath, verbose, ciMode} = options;
+
   if (!verbose) console.log = () => {};
 
   const port = await getAvailablePort(SERVER_PORT);
@@ -120,7 +128,7 @@ async function exec({indexHtml, serverPath, verbose}) {
   driver.on('exit', server.stop);
 
   const url = `http://localhost:${serverConfig.port}/${indexHtml}`;
-  const page = await driver.connect(url);
+  const page = await driver.connect(url, {ciMode});
   const report = await executeAxe(page);
 
   await driver.exit();

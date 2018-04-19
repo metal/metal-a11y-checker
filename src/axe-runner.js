@@ -102,6 +102,8 @@ function traverseObj(obj, callback) {
   Object.keys(obj).forEach(key => callback(obj[key], key));
 }
 
+const ciMode = Boolean(argv['ci-mode']);
+
 if (argv['packages']) {
   const packagesDir = argv['packages'] || 'packages';
   const packagesPath = path.join(path.resolve(appDirectory), packagesDir);
@@ -110,9 +112,10 @@ if (argv['packages']) {
   dl.list(`${packagesPath}/`, true, list => {
     const loop = list.reduce((promise, dir) => {
       return promise
-        .then(() =>
-          exec({indexHtml, serverPath: path.join(packagesPath, dir)})
-        )
+        .then(() => {
+          const serverPath = path.join(packagesPath, dir);
+          exec({indexHtml, serverPath, ciMode});
+        })
         .then(report => (reports[dir] = report));
     }, Promise.resolve());
 
@@ -122,7 +125,7 @@ if (argv['packages']) {
       .catch(ex => processException(ex));
   });
 } else {
-  exec({indexHtml, serverPath})
+  exec({indexHtml, serverPath, ciMode})
     .then(report => (decorate(report), processReport(report)))
     .catch(ex => processException(ex));
 }
