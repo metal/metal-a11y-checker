@@ -15,15 +15,29 @@ class Driver {
   }
 
   /**
+   * @typedef ConnectOptions
+   * @prop {boolean} ciMode
+   */
+
+  /**
    * Creates a Puppeteer instance and connects to the given address
    * @param {string} address
+   * @param {ConnectOptions} options
    * @return {Promise}
    */
-  async connect(address) {
-    this.browser = await puppeteer.launch();
+  async connect(address, options) {
+    const {ciMode} = options;
+    const launchOptions = ciMode
+      ? {
+          args: ['--no-sandbox'],
+        }
+      : {};
+    this.browser = await puppeteer.launch(launchOptions);
     const page = await this.browser.newPage();
     await page.goto(address, {waitUntil: 'load'});
-    console.log(`Connected to ${address}`);
+    console.log(
+      `Connected to ${address}${ciMode ? ', using --no-sandbox' : ''}`
+    );
     this.emitter.emit('connect');
     return page;
   }
